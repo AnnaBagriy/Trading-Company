@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TradingCompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblActivatingData">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="ActivatingDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="HouseNumber" Type="int" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblBlockingData">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TermInHours" Type="int" Nullable="false" />
+          <Property Name="BlockAndDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="KeyPasswordWord" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="IsFemale" Type="bit" />
+          <Property Name="CardNumber" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="IsActivated" Type="bit" Nullable="false" />
+          <Property Name="IsBlocked" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblActivatingData_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblActivatingData" Type="Self.tblActivatingData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblActivatingData">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddress_tblUser1">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblAddress" Type="Self.tblAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBlockingData_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblBlockingData" Type="Self.tblBlockingData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblBlockingData">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TradingCompanyModelStoreContainer">
+          <EntitySet Name="tblActivatingData" EntityType="Self.tblActivatingData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAddress" EntityType="Self.tblAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBlockingData" EntityType="Self.tblBlockingData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblActivatingData_tblUser" Association="Self.FK_tblActivatingData_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblActivatingData" EntitySet="tblActivatingData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddress_tblUser1" Association="Self.FK_tblAddress_tblUser1">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblAddress" EntitySet="tblAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBlockingData_tblUser" Association="Self.FK_tblBlockingData_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblBlockingData" EntitySet="tblBlockingData" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TradingCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblActivatingData">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="ActivatingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblActivatingData_tblUser" FromRole="tblActivatingData" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HouseNumber" Type="Int32" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblAddress_tblUser1" FromRole="tblAddress" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KeyPasswordWord" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="IsFemale" Type="Boolean" />
+          <Property Name="CardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsActivated" Type="Boolean" Nullable="false" />
+          <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblActivatingData" Relationship="Self.FK_tblActivatingData_tblUser" FromRole="tblUser" ToRole="tblActivatingData" />
+          <NavigationProperty Name="tblAddresses" Relationship="Self.FK_tblAddress_tblUser1" FromRole="tblUser" ToRole="tblAddress" />
+          <NavigationProperty Name="tblBlockingData" Relationship="TradingCompanyModel.FK_tblBlockingData_tblUser" FromRole="tblUser" ToRole="tblBlockingData" />
+        </EntityType>
+        <Association Name="FK_tblActivatingData_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblActivatingData" Type="Self.tblActivatingData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblActivatingData">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAddress_tblUser1">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblAddress" Type="Self.tblAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TradingCompanyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblActivatingDatas" EntityType="Self.tblActivatingData" />
+          <EntitySet Name="tblAddresses" EntityType="Self.tblAddress" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblActivatingData_tblUser" Association="Self.FK_tblActivatingData_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblActivatingData" EntitySet="tblActivatingDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAddress_tblUser1" Association="Self.FK_tblAddress_tblUser1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblAddress" EntitySet="tblAddresses" />
+          </AssociationSet>
+          <EntitySet Name="tblBlockingDatas" EntityType="TradingCompanyModel.tblBlockingData" />
+          <AssociationSet Name="FK_tblBlockingData_tblUser" Association="TradingCompanyModel.FK_tblBlockingData_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblBlockingData" EntitySet="tblBlockingDatas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblBlockingData">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TermInHours" Type="Int32" Nullable="false" />
+          <Property Name="BlockAndDelete" Type="Boolean" />
+          <NavigationProperty Name="tblUser" Relationship="TradingCompanyModel.FK_tblBlockingData_tblUser" FromRole="tblBlockingData" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_tblBlockingData_tblUser">
+          <End Type="TradingCompanyModel.tblUser" Role="tblUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TradingCompanyModel.tblBlockingData" Role="tblBlockingData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblBlockingData">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TradingCompanyModelStoreContainer" CdmEntityContainer="TradingCompanyEntities">
+          <EntitySetMapping Name="tblActivatingDatas">
+            <EntityTypeMapping TypeName="TradingCompanyModel.tblActivatingData">
+              <MappingFragment StoreEntitySet="tblActivatingData">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="ActivatingDate" ColumnName="ActivatingDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAddresses">
+            <EntityTypeMapping TypeName="TradingCompanyModel.tblAddress">
+              <MappingFragment StoreEntitySet="tblAddress">
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="TradingCompanyModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="KeyPasswordWord" ColumnName="KeyPasswordWord" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="IsFemale" ColumnName="IsFemale" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="IsActivated" ColumnName="IsActivated" />
+                <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBlockingDatas">
+            <EntityTypeMapping TypeName="TradingCompanyModel.tblBlockingData">
+              <MappingFragment StoreEntitySet="tblBlockingData">
+                <ScalarProperty Name="BlockAndDelete" ColumnName="BlockAndDelete" />
+                <ScalarProperty Name="TermInHours" ColumnName="TermInHours" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

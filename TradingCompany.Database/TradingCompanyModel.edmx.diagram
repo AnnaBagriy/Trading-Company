@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab5ec6c8046b44848eaa7c260e2ed135" Name="Diagram1">
+        <EntityTypeShape EntityType="TradingCompanyModel.tblActivatingData" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingCompanyModel.tblAddress" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingCompanyModel.tblUser" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="TradingCompanyModel.FK_tblActivatingData_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="TradingCompanyModel.FK_tblAddress_tblUser1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TradingCompanyModel.tblBlockingData" Width="1.5" PointX="3" PointY="7.125" />
+        <AssociationConnector Association="TradingCompanyModel.FK_tblBlockingData_tblUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
