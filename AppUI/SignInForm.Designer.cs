@@ -1,4 +1,4 @@
-﻿namespace AppUI
+﻿namespace UI
 {
     partial class SignInForm
     {
@@ -33,11 +33,13 @@
             this.signInButton = new System.Windows.Forms.Button();
             this.emailLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
+            this.incorrectEmailLabel = new System.Windows.Forms.Label();
+            this.incorrectPasswordLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // emailTextBox
             // 
-            this.emailTextBox.Location = new System.Drawing.Point(336, 138);
+            this.emailTextBox.Location = new System.Drawing.Point(336, 72);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(164, 22);
             this.emailTextBox.TabIndex = 0;
@@ -45,11 +47,12 @@
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(336, 75);
+            this.passwordTextBox.Location = new System.Drawing.Point(336, 140);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(164, 22);
             this.passwordTextBox.TabIndex = 1;
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
             // signInButton
             // 
@@ -78,13 +81,36 @@
             this.passwordLabel.Size = new System.Drawing.Size(69, 17);
             this.passwordLabel.TabIndex = 4;
             this.passwordLabel.Text = "Password";
-            this.passwordLabel.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // incorrectEmailLabel
+            // 
+            this.incorrectEmailLabel.AutoSize = true;
+            this.incorrectEmailLabel.ForeColor = System.Drawing.Color.Maroon;
+            this.incorrectEmailLabel.Location = new System.Drawing.Point(572, 75);
+            this.incorrectEmailLabel.Name = "incorrectEmailLabel";
+            this.incorrectEmailLabel.Size = new System.Drawing.Size(100, 17);
+            this.incorrectEmailLabel.TabIndex = 5;
+            this.incorrectEmailLabel.Text = "Incorrect email";
+            this.incorrectEmailLabel.Visible = false;
+            // 
+            // incorrectPasswordLabel
+            // 
+            this.incorrectPasswordLabel.AutoSize = true;
+            this.incorrectPasswordLabel.ForeColor = System.Drawing.Color.Maroon;
+            this.incorrectPasswordLabel.Location = new System.Drawing.Point(572, 143);
+            this.incorrectPasswordLabel.Name = "incorrectPasswordLabel";
+            this.incorrectPasswordLabel.Size = new System.Drawing.Size(127, 17);
+            this.incorrectPasswordLabel.TabIndex = 6;
+            this.incorrectPasswordLabel.Text = "Incorrect password";
+            this.incorrectPasswordLabel.Visible = false;
             // 
             // SignInForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.incorrectPasswordLabel);
+            this.Controls.Add(this.incorrectEmailLabel);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.emailLabel);
             this.Controls.Add(this.passwordTextBox);
@@ -104,6 +130,8 @@
         private System.Windows.Forms.Button signInButton;
         private System.Windows.Forms.Label emailLabel;
         private System.Windows.Forms.Label passwordLabel;
+        private System.Windows.Forms.Label incorrectEmailLabel;
+        private System.Windows.Forms.Label incorrectPasswordLabel;
     }
 }
 

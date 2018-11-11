@@ -42,6 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserBLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj">
+      <Project>{33F0F549-148D-4DEF-B7F3-440E5D500757}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TradingCompany.DAL\TradingCompany.DAL.csproj">
+      <Project>{28E6E475-B486-4760-BCA5-CF4A7EAA1355}</Project>
+      <Name>TradingCompany.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
