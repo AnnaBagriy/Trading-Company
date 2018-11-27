@@ -1,15 +1,11 @@
-﻿using BLL;
+﻿using AppUI;
+using BLL;
+using BLL.Strings;
 using DTO;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Unity;
 
 namespace UI
 {
@@ -36,7 +32,6 @@ namespace UI
             if (emailTextBox.BackColor == TextBoxErrorBackColor && emailTextBox.Focused)
             {
                 emailTextBox.BackColor = TextBoxDefaultBackColor;
-                incorrectEmailLabel.Visible = false;
             }
         }
 
@@ -45,7 +40,6 @@ namespace UI
             if (passwordTextBox.BackColor == TextBoxErrorBackColor && emailTextBox.Focused)
             {
                 passwordTextBox.BackColor = TextBoxDefaultBackColor;
-                incorrectPasswordLabel.Visible = false;
             }
         }
 
@@ -55,29 +49,35 @@ namespace UI
             var password = passwordTextBox.Text;
 
             UserDTO user = null;
+            string message = "";
+            
+            var result = _userBLL.GetUserSignIn(email, password);
 
-            try
-            {
-                user = _userBLL.GetUserSignIn(email, password);
-            }
-            catch (NullReferenceException)
+            user = result.Data;
+            message = result.Message;
+
+            if (string.IsNullOrWhiteSpace(emailTextBox.Text))
             {
                 emailTextBox.BackColor = TextBoxErrorBackColor;
-                incorrectEmailLabel.Visible = true;
             }
-            catch (AuthenticationException)
+            if (string.IsNullOrWhiteSpace(passwordTextBox.Text))
             {
                 passwordTextBox.BackColor = TextBoxErrorBackColor;
-                incorrectPasswordLabel.Visible = true;
             }
-            catch (Exception ex)
+
+            if (!string.IsNullOrEmpty(message))
             {
-                MessageBox.Show($"An error occured.\n{ex.Message}");
+                MessageBox.Show(message, ErrorMessages.GeneralError, MessageBoxButtons.OK);               
             }
 
             if (user != null)
             {
-                MessageBox.Show($"Welcome, {user.FirstName}!");
+                Hide();
+
+                var menu = Program.Container.Resolve<AdministrationMenuForm>();
+                menu.ShowDialog();
+
+                return;
             }
         }
     }

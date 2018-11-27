@@ -9,7 +9,7 @@ namespace TradingCompany.DAL.MappingConfiguration
         public BlockingDataProfile()
         {
             CreateMap<tblBlockingData, BlockingDataDTO>();
-            CreateMap<BlockingDataDTO, tblBlockingData>();
+            CreateMap<BlockingDataDTO, tblBlockingData>().ForMember(dst => dst.tblUser.IsBlocked, src => src.UseValue(true));
         }
     }
 }

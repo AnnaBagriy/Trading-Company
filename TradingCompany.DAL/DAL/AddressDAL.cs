@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TradingCompany.DAL.DAL.DALAbstractions;
 using TradingCompany.Database;
 
 namespace TradingCompany.DAL
 {
-    public class AddressDAL : CommonDAL<AddressDTO, tblAddress>
+    public class AddressDAL : CommonDAL<AddressDTO, tblAddress>, IAddressDAL
     {
         public AddressDAL()
         {

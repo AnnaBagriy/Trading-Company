@@ -11,8 +11,7 @@ namespace TradingCompany.DAL.MappingConfiguration
             CreateMap<tblUser, UserDTO>()
                 .ForMember(dst => dst.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth)); // For different properies namings
             CreateMap<UserDTO, tblUser>()
-                .ForMember(dst => dst.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
-                .ForMember(dst => dst.tblBlockingData, opt => opt.Ignore());
+                .ForMember(dst => dst.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth));
         }
     }
 }

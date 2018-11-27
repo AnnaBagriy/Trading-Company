@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using TradingCompany.DAL.DAL.DALAbstractions;
 using TradingCompany.Database;
 
 namespace TradingCompany.DAL
 {
-    public class UserDAL : CommonDAL<UserDTO, tblUser>
+    public class UserDAL : CommonDAL<UserDTO, tblUser>, IUserDAL
     {
         public UserDAL()
         {
@@ -82,7 +83,53 @@ namespace TradingCompany.DAL
 
             return entity;
         }
-        
+
+        public UserDTO GetByFirstName(string firstName)
+        {
+            var entity = new UserDTO();
+
+            using (var entities = new TradingCompanyEntities())
+            {
+                entity = _mapper.Map<UserDTO>(entities.tblUsers.Where(user => user.FirstName == firstName).FirstOrDefaultAsync().Result);
+
+                if (Includes != null)
+                {
+                    DbQuery<tblUser> query = entities.Set<tblUser>();
+                    Includes.ForEach(x => query = query.Include(x));
+                }
+            }
+
+            if (entity == null)
+            {
+                throw new NullReferenceException(nameof(UserDTO));
+            }
+
+            return entity;
+        }
+
+        public UserDTO GetByLastName(string lastName)
+        {
+            var entity = new UserDTO();
+
+            using (var entities = new TradingCompanyEntities())
+            {
+                entity = _mapper.Map<UserDTO>(entities.tblUsers.Where(user => user.LastName == lastName).FirstOrDefaultAsync().Result);
+
+                if (Includes != null)
+                {
+                    DbQuery<tblUser> query = entities.Set<tblUser>();
+                    Includes.ForEach(x => query = query.Include(x));
+                }
+            }
+
+            if (entity == null)
+            {
+                throw new NullReferenceException(nameof(UserDTO));
+            }
+
+            return entity;
+        }
+
         public List<UserDTO> GetByCountry(string country)
         {
             var entity = new List<UserDTO>();
