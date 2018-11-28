@@ -1,14 +1,10 @@
 ﻿using BLL.Interfaces;
-using DTO;
 using BLL.Services;
+using BLL.Strings;
+using DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
 using TradingCompany.DAL;
-using BLL.Strings;
 
 namespace BLL
 {
@@ -139,10 +135,8 @@ namespace BLL
             UserDTO user = null;
             string message = "";
 
-            var splitData = data.ToLower().Split();
-
-            foreach (var s in splitData)
-            {
+            var s = data.ToLower();
+            
                 try
                 {
                     user = _userDAL.GetByEmail(s);
@@ -238,7 +232,7 @@ namespace BLL
 
                     user = null;
                 }
-            }
+         
 
             return new ResponseData<List<UserDTO>>(users, message);
         }
