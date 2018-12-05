@@ -121,6 +121,20 @@ namespace BLL
             return new Response("");
         }
 
+        public IResponse UpdateUser(UserDTO user)
+        {
+            _userDAL.Update(user,user.UserId);
+
+            return new Response("");
+        }
+
+        public IResponse AddUser(UserDTO user)
+        {
+            _userDAL.Add(user);
+
+            return new Response("");
+        }
+
         public IResponse UpdateBlockingData(UserDTO user, BlockingDataDTO blockingData)
         {
             _blockingDataDAL.Add(blockingData);
